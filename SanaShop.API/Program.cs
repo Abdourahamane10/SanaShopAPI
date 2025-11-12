@@ -1,5 +1,6 @@
 using SanaShop.Applications;
 using SanaShop.Infrastructure;
+using SanaShop.Infrastructure.Database;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddServices();
 builder.Services.AddRepositories();
+
+//Add DbContext
+builder.Services.AddSanaShopDbContext(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

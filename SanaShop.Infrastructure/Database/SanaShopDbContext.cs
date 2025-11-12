@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SanaShop.Infrastructure.Database
 {
-    public class AppDbContext : DbContext
+    public class SanaShopDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public SanaShopDbContext(DbContextOptions<SanaShopDbContext> options) : base(options)
         {
         }
 

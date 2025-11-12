@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using SanaShop.Infrastructure.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +32,17 @@ namespace SanaShop.Infrastructure
                         services.AddScoped(serviceType, typesToRegister.assignedType);
                     });
                 });
+        }
+
+        public static IServiceCollection AddSanaShopDbContext(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<SanaShopDbContext>(options =>
+            {
+                var connectionString = configuration.GetConnectionString("SanaShopBDDConnection");
+                options.UseSqlServer(connectionString, sqlOptions => { });
+            });
+
+            return services;
         }
     }
 }
