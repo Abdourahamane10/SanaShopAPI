@@ -11,7 +11,7 @@ namespace SanaShop.Infrastructure.Base
 {
     public class BaseRepository<TEntity, TContext> : IBaseRepository<TEntity>
         where TEntity : BaseEntity
-        where TContext : AppDbContext
+        where TContext : SanaShopDbContext
     {
         protected readonly TContext _context;
 
