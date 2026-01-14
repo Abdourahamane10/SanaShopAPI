@@ -6,12 +6,15 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SanaShop.Infrastructure.Base
+namespace SanaShop.Applications.Base
 {
     public interface IBaseRepository<T> where T : BaseEntity
     {
-        Task<T> GetById(int id);
+        Task<T?> GetByIdAsync(int id);
         Task<List<T>> GetAllAsync();
         Task<List<T>> GetAllAsync(Expression<Func<T, bool>> where);
+        Task AddAsync(T entity);
+        void Update(T entity);
+        void Delete(T entity);
     }
 }

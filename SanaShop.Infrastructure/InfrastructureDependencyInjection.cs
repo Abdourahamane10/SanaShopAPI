@@ -1,7 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SanaShop.Applications.Base;
+using SanaShop.Applications.Interfaces;
+using SanaShop.Infrastructure.Base;
 using SanaShop.Infrastructure.Database;
+using SanaShop.Infrastructure.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +15,9 @@ using System.Threading.Tasks;
 
 namespace SanaShop.Infrastructure
 {
-    public static class RepositoryDependencyInjection
+    public static class InfrastructureDependencyInjection
     {
-        public static void AddRepositories(this IServiceCollection services)
+        public static void AddInfrastructureServices(this IServiceCollection services)
         {
             // Register your repositories here
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -21,7 +25,6 @@ namespace SanaShop.Infrastructure
                 .Where(t => $"{assembly.GetName().Name}.Repository" == t.Namespace 
                 && !t.IsAbstract
                 && !t.IsInterface
-                && t.IsInterface
                 && t.Name.EndsWith("Repository"))
                 .Select(a => new { assignedType = a, serviceTypes = a.GetInterfaces().ToList() })
                 .ToList()
@@ -32,6 +35,12 @@ namespace SanaShop.Infrastructure
                         services.AddScoped(serviceType, typesToRegister.assignedType);
                     });
                 });
+
+            //Register BaseRepository
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+
+            //Register UnitOfWork
+            services.AddScoped<IUnitOfWork, EfUnitOfWork>();
         }
 
         public static IServiceCollection AddSanaShopDbContext(this IServiceCollection services, IConfiguration configuration)
