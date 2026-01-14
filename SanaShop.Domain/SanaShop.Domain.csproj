@@ -6,11 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="DTO\" />
-    <Folder Include="Query\" />
-    <Folder Include="Request\" />
-  </ItemGroup>
-
 </Project>
