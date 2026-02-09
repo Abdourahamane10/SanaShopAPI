@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SanaShop.API.DTOs;
+using SanaShop.API.ExtensionMethods;
 using SanaShop.Applications.DTOs.ParametresGeneraux;
 using SanaShop.Applications.Features.ParametresGeneraux.Commands;
 
@@ -10,6 +12,7 @@ namespace SanaShop.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[EnableCors(SecurityMethods.DEFAULT_POLICY)]
     public class ParametreGeneralController : ControllerBase
     {
         #region Attributs privés
