@@ -1,7 +1,9 @@
+using SanaShop.API.ExtensionMethods;
 using SanaShop.API.Middlewares;
 using SanaShop.Applications;
 using SanaShop.Infrastructure;
 using Serilog;
+using System.Runtime.CompilerServices;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +20,9 @@ builder.Services.AddInfrastructureServices();
 
 //Add DbContext
 builder.Services.AddSanaShopDbContext(builder.Configuration);
+
+//Add Security (CORS, JWT, etc.)
+builder.Services.AddCustomSecurity(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -37,6 +42,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Enable CORS
+app.UseCors(SecurityMethods.DEFAULT_POLICY);
 
 app.UseAuthorization();
 
