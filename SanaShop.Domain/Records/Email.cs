@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SanaShop.Domain.Records
@@ -27,9 +29,11 @@ namespace SanaShop.Domain.Records
         #endregion Constructeurs
 
         #region Méthodes métier
-        public static void ValiderEmail(string adresse)
+        private static void ValiderEmail(string adresse)
         {
-            if (String.IsNullOrWhiteSpace(adresse) || !adresse.Contains("@"))
+            bool bIsValidEmail = MailAddress.TryCreate(adresse, out _);
+
+            if (!bIsValidEmail)
             {
                 throw new ArgumentException("L'adresse email n'est pas valide", nameof(adresse));
             }

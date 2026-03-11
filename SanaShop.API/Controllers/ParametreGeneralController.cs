@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SanaShop.API.DTOs;
 using SanaShop.API.ExtensionMethods;
 using SanaShop.Applications.DTOs.ParametresGeneraux;
-using SanaShop.Applications.Features.ParametresGeneraux.Commands;
+using SanaShop.Applications.Features.Commands.ParametresGeneraux;
 
 namespace SanaShop.API.Controllers
 {

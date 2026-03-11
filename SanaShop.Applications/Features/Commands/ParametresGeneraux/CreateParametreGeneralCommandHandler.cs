@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SanaShop.Applications.Features.ParametresGeneraux.Commands
+namespace SanaShop.Applications.Features.Commands.ParametresGeneraux
 {
     public class CreateParametreGeneralCommandHandler : IRequestHandler<CreateParametreGeneralCommand, int>
     {
@@ -31,17 +31,17 @@ namespace SanaShop.Applications.Features.ParametresGeneraux.Commands
 
         public async Task<int> Handle(CreateParametreGeneralCommand request, CancellationToken cancellationToken)
         {
-            Telephone oMobileContact = new Telephone(request.CodePaysTelephoneMobile, request.NumContactMobile);
-            Telephone oFixeContact = new Telephone(request.CodePaysTelephoneFixe, request.NumContactFixe);
+            Telephone oMobileContact = Telephone.Create(request.CodePaysTelephoneMobile, request.NumContactMobile);
+            Telephone oFixeContact = Telephone.Create(request.CodePaysTelephoneFixe, request.NumContactFixe);
             Email oEmailContact = new Email(request.EmailContact);
 
             ParametreGeneral oParametreGeneral = new ParametreGeneral(request.NomSociete, oMobileContact, oFixeContact,
                 oEmailContact);
-            oParametreGeneral.DefinirOuModifierParagrapheEntete(request.TexteEntete);
-            oParametreGeneral.DefinirOuModifierParagraphePiedDePage(request.TextePiedDePage);
-            oParametreGeneral.DefinirOuModifierParagraphePageAccueil(request.TextePageAccueil);
-            oParametreGeneral.DefinirOuModifierParagrapheAPropos(request.TexteAPropos);
-            oParametreGeneral.DefinirOuModifierUrlLogoSociete(request.UrlLogoSociete);
+            oParametreGeneral.ModifierParagrapheEntete(request.TexteEntete);
+            oParametreGeneral.ModifierParagraphePiedDePage(request.TextePiedDePage);
+            oParametreGeneral.ModifierParagraphePageAccueil(request.TextePageAccueil);
+            oParametreGeneral.ModifierParagrapheAPropos(request.TexteAPropos);
+            oParametreGeneral.ModifierUrlLogoSociete(request.UrlLogoSociete);
 
             await _parametreGeneralRepository.AddAsync(oParametreGeneral);
 

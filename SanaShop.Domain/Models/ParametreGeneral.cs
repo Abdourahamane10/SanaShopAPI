@@ -52,39 +52,39 @@ namespace SanaShop.Domain.Models
         #endregion méthodes métier
 
         #region Méthodes publiques
-        public void DefinirOuModifierParagrapheEntete(string? paragrapheEntete)
+        public void ModifierParagrapheEntete(string? paragrapheEntete)
         {
             ParagrapheEntete = paragrapheEntete;
         }
 
-        public void DefinirOuModifierParagraphePiedDePage(string? paragraphePiedDePage)
+        public void ModifierParagraphePiedDePage(string? paragraphePiedDePage)
         {
             ParagraphePiedDePage = paragraphePiedDePage;
         }
 
-        public void DefinirOuModifierParagraphePageAccueil(string? paragraphePageAccueil)
+        public void ModifierParagraphePageAccueil(string? paragraphePageAccueil)
         {
             ParagraphePageAccueil = paragraphePageAccueil;
         }
 
-        public void DefinirOuModifierParagrapheAPropos(string? paragrapheAPropos)
+        public void ModifierParagrapheAPropos(string? paragrapheAPropos)
         {
             ParagrapheAPropos = paragrapheAPropos;
         }
 
-        public void DefinirOuModifierUrlLogoSociete(string? urlLogoSociete)
+        public void ModifierUrlLogoSociete(string? urlLogoSociete)
         {
             UrlLogoSociete = urlLogoSociete;
         }
 
         public void ModifierMobileContact(string sIndicatifMobile, string sNumMobile)
         {
-            MobileContact = new Telephone(sIndicatifMobile, sNumMobile);
+            MobileContact = Telephone.Create(sIndicatifMobile, sNumMobile);
         }
 
         public void ModifierFixeContact(string sIndicatifFixe, string sNumFixe)
         {
-            FixeContact = new Telephone(sIndicatifFixe, sNumFixe);
+            FixeContact = Telephone.Create(sIndicatifFixe, sNumFixe);
         }
 
         public void ModifierEmailContact(string sEmailContact)
@@ -92,18 +92,13 @@ namespace SanaShop.Domain.Models
             EmailContact = new Email(sEmailContact);
         }
 
-        public void ModifierParagraphes(string paragrapheEntete, string paragraphePiedDePage,
-            string paragraphePageAccueil, string paragrapheAPropos)
+        public void ModifierParagraphes(string? paragrapheEntete, string? paragraphePiedDePage,
+            string? paragraphePageAccueil, string? paragrapheAPropos)
         {
-            DefinirOuModifierParagrapheEntete(paragrapheEntete);
-            DefinirOuModifierParagraphePiedDePage(paragraphePiedDePage);
-            DefinirOuModifierParagraphePageAccueil(paragraphePageAccueil);
-            DefinirOuModifierParagrapheAPropos(paragrapheAPropos);
-        }
-
-        public void ModifierUrlLogoSociete(string urlLogoSociete)
-        {
-            UrlLogoSociete = urlLogoSociete;
+            ModifierParagrapheEntete(paragrapheEntete);
+            ModifierParagraphePiedDePage(paragraphePiedDePage);
+            ModifierParagraphePageAccueil(paragraphePageAccueil);
+            ModifierParagrapheAPropos(paragrapheAPropos);
         }
 
         public void MettreAjourParametreGeneral(string sNomSociete, string sIndicatifPaysMobile, string sNumMobile, 
