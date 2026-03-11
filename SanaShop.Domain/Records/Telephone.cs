@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PhoneNumbers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,8 @@ namespace SanaShop.Domain.Records
         public string IndicatifPays { get; } = default!;
         public string NumTelephone { get; } = default!;
 
+        public string E164 { get; } = default!;
+
         #endregion Propriétés
 
         #region Constructeurs
@@ -21,32 +24,45 @@ namespace SanaShop.Domain.Records
         {
         }
 
-        public Telephone(string indicatifPays, string numTelephone)
+        private Telephone(string indicatifPays, string numTelephone, string e164)
         {
-            ValiderCodePays(indicatifPays);
-            IndicatifPays = indicatifPays;
-            ValiderNumTelephone(numTelephone);
-            NumTelephone = numTelephone;
+            this.IndicatifPays = indicatifPays;
+            this.NumTelephone = numTelephone;
+            this.E164 = e164;
         }
         #endregion Constructeurs
 
         #region Méthodes métier
-        public static void ValiderCodePays(string indicatifPays)
+
+        public static Telephone Create(string indicatifPays, string numTelephone)
         {
-            if (String.IsNullOrWhiteSpace(indicatifPays) || indicatifPays.Length > 4 ||
-                !Regex.IsMatch(indicatifPays, @"^\+[0-9]+$"))
+            var util = PhoneNumberUtil.GetInstance();
+
+            try
             {
-                throw new ArgumentException("Le coode est invalide", nameof(indicatifPays));
+                var region = util.GetRegionCodeForCountryCode(int.Parse(indicatifPays.Replace("+", "")));
+
+                if (region == null)
+                {
+                    throw new ArgumentException("Le code pays est invalide", nameof(indicatifPays));
+                }
+
+                var number = util.Parse(numTelephone, region);
+
+                if (!util.IsValidNumber(number))
+                {
+                    throw new ArgumentException("Le numéro de téléphone n'est pas valide", nameof(numTelephone));
+                }
+
+                return new Telephone(indicatifPays, numTelephone, util.Format(number, PhoneNumberFormat.E164));
+            }
+            catch(Exception ex)
+            {
+                throw new ArgumentException("Le numéro de téléphone n'est pas valide", nameof(numTelephone), ex);    
             }
         }
 
-        public static void ValiderNumTelephone(string numTelephone)
-        {
-            if (String.IsNullOrWhiteSpace(numTelephone) || !Regex.IsMatch(numTelephone, @"[0-9]+$"))
-            {
-                throw new ArgumentException("Le numéro de téléphone n'est pas valide", nameof(numTelephone));
-            }
-        }
+        public override string ToString() => E164;
         #endregion Méthodes métier
     }
 }

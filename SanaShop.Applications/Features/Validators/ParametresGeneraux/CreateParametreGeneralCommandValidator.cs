@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
-using SanaShop.Applications.Features.ParametresGeneraux.Commands;
+using SanaShop.Applications.Features.Commands.ParametresGeneraux;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SanaShop.Applications.Features.ParametresGeneraux.Validators
+namespace SanaShop.Applications.Features.Validators.ParametresGeneraux
 {
     public class CreateParametreGeneralCommandValidator : AbstractValidator<CreateParametreGeneralCommand>
     {
@@ -21,16 +21,14 @@ namespace SanaShop.Applications.Features.ParametresGeneraux.Validators
                 .MaximumLength(4).WithMessage("Le code pays du téléphone mobile ne peut pas dépasser 4 caractères.");
 
             RuleFor(p => p.NumContactMobile)
-                .NotEmpty().WithMessage("Le numéro de contact mobile est requis.")
-                .MaximumLength(20).WithMessage("Le numéro de contact mobile ne peut pas dépasser 20 caractères.");
+                .NotEmpty().WithMessage("Le numéro de contact mobile est requis.");
 
             RuleFor(p => p.CodePaysTelephoneFixe)
                 .NotEmpty().WithMessage("Le code pays du téléphone fixe est requis.")
                 .MaximumLength(4).WithMessage("Le code pays du téléphone fixe ne peut pas dépasser 4 caractères.");
 
             RuleFor(p => p.NumContactFixe)
-                .NotEmpty().WithMessage("Le numéro de contact fixe est requis.")
-                .MaximumLength(20).WithMessage("Le numéro de contact fixe ne peut pas dépasser 20 caractères.");
+                .NotEmpty().WithMessage("Le numéro de contact fixe est requis.");
 
             RuleFor(p => p.EmailContact)
                 .NotEmpty().WithMessage("L'email de contact est requis.")

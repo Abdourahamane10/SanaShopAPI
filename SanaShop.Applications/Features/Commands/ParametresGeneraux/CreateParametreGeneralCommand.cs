@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace SanaShop.Applications.Features.ParametresGeneraux.Commands
+namespace SanaShop.Applications.Features.Commands.ParametresGeneraux
 {
     public record CreateParametreGeneralCommand(
         string NomSociete,

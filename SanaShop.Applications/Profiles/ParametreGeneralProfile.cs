@@ -1,12 +1,6 @@
 ﻿using AutoMapper;
 using SanaShop.Applications.DTOs.ParametresGeneraux;
-using SanaShop.Applications.Features.ParametresGeneraux.Commands;
 using SanaShop.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SanaShop.Domain.Profiles
 {
